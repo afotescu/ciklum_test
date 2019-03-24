@@ -1,6 +1,6 @@
 FROM golang:alpine
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git build-base
 
 WORKDIR ./ciklum_test
 
