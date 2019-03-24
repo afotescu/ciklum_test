@@ -2,72 +2,41 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"log"
-	"os"
-	"strings"
+	"net/http"
 
-	"google.golang.org/grpc"
+	"ciklum_test/ClientAPI/router"
 
-	pb "ciklum_test/protobuf"
+	"ciklum_test/ClientAPI/client"
+
+	"github.com/pkg/errors"
+
+	"ciklum_test/ClientAPI/utils"
 )
 
 const (
-	address = "localhost:50051"
+	port = ":5000"
 )
 
-func notMain(ctx context.Context, client pb.TransporterClient) {
-	jsonFile, err := os.Open("./ports.json")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//
-	decoder := json.NewDecoder(jsonFile)
-	t, err := decoder.Token()
-	if delim, ok := t.(json.Delim); !ok || delim != '{' {
-		log.Fatal("Expected object")
-	}
-	for decoder.More() {
-		token, err := decoder.Token()
-		tokenStr, ok := token.(string)
-		if !ok && tokenStr != strings.ToUpper(tokenStr) {
-			log.Fatal("token must be an uppercase string")
-		}
-		if err != nil {
-			log.Fatalf("1an error occured: %v", err)
-		}
-
-		for decoder.More() {
-			port := &pb.Port{}
-			err = decoder.Decode(port)
-			if err != nil {
-				if err.Error() == "not at beginning of value" {
-					break
-				}
-				log.Fatalf("2an error occured: %v", err)
-			}
-			_, err := client.CreateOrUpdatePorts(ctx, port)
-			if err != nil {
-				log.Fatalf("1an error occured: %v", err)
-			}
-		}
-	}
-}
-
 func main() {
-	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer func() {
-		if err = conn.Close(); err != nil {
-			log.Fatal(err)
-		}
-	}()
-	c := pb.NewTransporterClient(conn)
-
 	ctx := context.Background()
-	notMain(ctx, c)
+
+	grpcClient, err := client.NewGRPCClient(ctx)
+	if err != nil {
+		log.Fatalln(errors.Wrap(err, "failed to create new grpc client"))
+	}
+
+	log.Println("parsing json")
+	err = utils.ParseAndCallUpdateFunc(ctx, "./ports.json", grpcClient.CreateOrUpdatePorts)
+	if err != nil {
+		log.Fatalln(errors.Wrap(err, "parse and call updateFunc"))
+	}
+
+	log.Println("initializing a new router")
+	r := router.NewRouter(ctx, grpcClient)
+
+	log.Println("starting the server")
+	if err := http.ListenAndServe(port, r); err != nil {
+		log.Fatalln(errors.Wrap(err, "Could not start http server"))
+	}
 }

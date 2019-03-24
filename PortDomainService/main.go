@@ -31,11 +31,13 @@ func main() {
 		cancel()
 	}()
 
+	log.Println("connecting to the database")
 	mdb, client, err := db.NewMongoDB(ctx)
 	if err != nil {
 		log.Fatal(errors.Wrap(err, "failed to initialize mongo database"))
 	}
 
+	log.Println("initializing grpc server")
 	grpcServer, err := server.NewGRPCServer(ctx, mdb)
 	if err != nil {
 		log.Fatal(errors.Wrap(err, "failed to initialize grpc server"))
@@ -46,6 +48,7 @@ func main() {
 		log.Fatalln(errors.Wrap(err, "failed to initialize tcp listener"))
 	}
 	go func() {
+		log.Println("starting the server")
 		if err := grpcServer.Serve(listener); err != nil {
 			log.Fatal(errors.Wrap(err, "failed to start grpc server"))
 		}

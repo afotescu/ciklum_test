@@ -43,7 +43,7 @@ func (m *Port) Reset()         { *m = Port{} }
 func (m *Port) String() string { return proto.CompactTextString(m) }
 func (*Port) ProtoMessage()    {}
 func (*Port) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ports_83c59851dd4da390, []int{0}
+	return fileDescriptor_ports_032566dcea0c276d, []int{0}
 }
 func (m *Port) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Port.Unmarshal(m, b)
@@ -144,7 +144,7 @@ func (m *Ports) Reset()         { *m = Ports{} }
 func (m *Ports) String() string { return proto.CompactTextString(m) }
 func (*Ports) ProtoMessage()    {}
 func (*Ports) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ports_83c59851dd4da390, []int{1}
+	return fileDescriptor_ports_032566dcea0c276d, []int{1}
 }
 func (m *Ports) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Ports.Unmarshal(m, b)
@@ -172,8 +172,8 @@ func (m *Ports) GetData() []*Port {
 }
 
 type PortsPage struct {
-	Limit                int64    `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset               int64    `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
+	Limit                uint64   `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset               uint64   `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -183,7 +183,7 @@ func (m *PortsPage) Reset()         { *m = PortsPage{} }
 func (m *PortsPage) String() string { return proto.CompactTextString(m) }
 func (*PortsPage) ProtoMessage()    {}
 func (*PortsPage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ports_83c59851dd4da390, []int{2}
+	return fileDescriptor_ports_032566dcea0c276d, []int{2}
 }
 func (m *PortsPage) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PortsPage.Unmarshal(m, b)
@@ -203,14 +203,14 @@ func (m *PortsPage) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_PortsPage proto.InternalMessageInfo
 
-func (m *PortsPage) GetLimit() int64 {
+func (m *PortsPage) GetLimit() uint64 {
 	if m != nil {
 		return m.Limit
 	}
 	return 0
 }
 
-func (m *PortsPage) GetOffset() int64 {
+func (m *PortsPage) GetOffset() uint64 {
 	if m != nil {
 		return m.Offset
 	}
@@ -228,7 +228,7 @@ func (m *Response) Reset()         { *m = Response{} }
 func (m *Response) String() string { return proto.CompactTextString(m) }
 func (*Response) ProtoMessage()    {}
 func (*Response) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ports_83c59851dd4da390, []int{3}
+	return fileDescriptor_ports_032566dcea0c276d, []int{3}
 }
 func (m *Response) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Response.Unmarshal(m, b)
@@ -367,9 +367,9 @@ var _Transporter_serviceDesc = grpc.ServiceDesc{
 	Metadata: "ports.proto",
 }
 
-func init() { proto.RegisterFile("ports.proto", fileDescriptor_ports_83c59851dd4da390) }
+func init() { proto.RegisterFile("ports.proto", fileDescriptor_ports_032566dcea0c276d) }
 
-var fileDescriptor_ports_83c59851dd4da390 = []byte{
+var fileDescriptor_ports_032566dcea0c276d = []byte{
 	// 333 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x4c, 0x92, 0x41, 0x6b, 0xe3, 0x30,
 	0x10, 0x85, 0xe3, 0xd8, 0x4e, 0xec, 0xf1, 0xc2, 0x2e, 0xda, 0x52, 0x44, 0x2e, 0x35, 0x3e, 0xf9,
@@ -385,11 +385,11 @@ var fileDescriptor_ports_83c59851dd4da390 = []byte{
 	0x6c, 0x62, 0x71, 0x0b, 0xab, 0x8b, 0x39, 0x51, 0xeb, 0x64, 0x1e, 0x4e, 0x8e, 0x14, 0xf2, 0x50,
 	0x87, 0x12, 0xc6, 0x3c, 0xd4, 0x61, 0x55, 0x43, 0xea, 0xf3, 0x3b, 0x71, 0x07, 0x49, 0xa7, 0x58,
 	0xc9, 0xa8, 0x8c, 0xeb, 0x62, 0x57, 0x6c, 0x87, 0xb2, 0xfc, 0xac, 0x09, 0x83, 0xea, 0x09, 0xf2,
-	0xb0, 0xb9, 0x57, 0x47, 0xf4, 0x61, 0x4f, 0xfa, 0xac, 0x39, 0xf4, 0x15, 0x37, 0x03, 0xf8, 0xc3,
-	0x74, 0x38, 0x38, 0xe4, 0x50, 0x59, 0xdc, 0x8c, 0x54, 0x55, 0x90, 0x35, 0xe8, 0x7a, 0x32, 0x2e,
+	0xb0, 0xb9, 0x57, 0x47, 0xf4, 0x61, 0x4f, 0xfa, 0xac, 0x39, 0xf4, 0x95, 0x34, 0x03, 0xf8, 0xc3,
+	0x74, 0x38, 0x38, 0xe4, 0x50, 0x59, 0xd2, 0x8c, 0x54, 0x55, 0x90, 0x35, 0xe8, 0x7a, 0x32, 0x2e,
 	0x98, 0x73, 0xac, 0xf8, 0xe2, 0xc6, 0xaa, 0x47, 0xda, 0x59, 0x28, 0xde, 0xac, 0x32, 0xce, 0xdf,
 	0x45, 0x2b, 0x1e, 0xe1, 0xff, 0xb3, 0x45, 0xc5, 0xf8, 0x6a, 0xdf, 0xfb, 0x4e, 0x31, 0x0e, 0x2e,
 	0xe7, 0xbe, 0x36, 0x7f, 0x47, 0x98, 0xbe, 0x5d, 0x2d, 0xc4, 0x3d, 0x64, 0x2f, 0xc8, 0xc3, 0xee,
 	0xbf, 0xd9, 0x6e, 0x70, 0xbd, 0xf9, 0x33, 0x57, 0xaa, 0xc5, 0xc7, 0x2a, 0xfc, 0x0b, 0x0f, 0x3f,
-	0x01, 0x00, 0x00, 0xff, 0xff, 0xe0, 0x93, 0x18, 0xe0, 0x1a, 0x02, 0x00, 0x00,
+	0x01, 0x00, 0x00, 0xff, 0xff, 0x5c, 0x2e, 0x8c, 0x7a, 0x1a, 0x02, 0x00, 0x00,
 }
