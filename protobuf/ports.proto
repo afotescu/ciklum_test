@@ -19,11 +19,13 @@ message Ports {
 }
 
 message PortsPage {
-    int32 limit = 1;
-    int32 offset = 2;
+    int64 limit = 1;
+    int64 offset = 2;
 }
 
-message Response {}
+message Response {
+    string status = 1;
+}
 
 service Transporter {
     rpc CreateOrUpdatePorts(Port) returns (Response) {};

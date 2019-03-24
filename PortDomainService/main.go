@@ -2,34 +2,63 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net"
+	"os"
+	"os/signal"
+	"syscall"
 
-	pb "ciklum_test/protobuf"
-	"google.golang.org/grpc"
+	"ciklum_test/PortDomainService/server"
+
+	"ciklum_test/PortDomainService/db"
+
+	"github.com/pkg/errors"
 )
 
-type Server struct{}
-
-func (s *Server) CreateOrUpdatePorts(ctx context.Context, port *pb.Port) (*pb.Response, error) {
-	fmt.Println(port)
-	return &pb.Response{}, nil
-}
-
-func (s *Server) GetPorts(ctx context.Context, ports *pb.PortsPage) (*pb.Ports, error) {
-	return &pb.Ports{}, nil
-}
+const (
+	tcpPort = ":5001"
+)
 
 func main() {
-	lis, err := net.Listen("tcp", ":50051")
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+
+	signalCh := make(chan os.Signal)
+	signal.Notify(signalCh, syscall.SIGKILL, syscall.SIGTERM, syscall.SIGINT)
+	go func() {
+		<-signalCh
+		log.Println("shutting down the server")
+		cancel()
+	}()
+
+	mdb, client, err := db.NewMongoDB(ctx)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatal(errors.Wrap(err, "failed to initialize mongo database"))
 	}
-	s := grpc.NewServer()
-	server := &Server{}
-	pb.RegisterTransporterServer(s, server)
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+
+	grpcServer, err := server.NewGRPCServer(ctx, mdb)
+	if err != nil {
+		log.Fatal(errors.Wrap(err, "failed to initialize grpc server"))
 	}
+
+	listener, err := net.Listen("tcp", tcpPort)
+	if err != nil {
+		log.Fatalln(errors.Wrap(err, "failed to initialize tcp listener"))
+	}
+	go func() {
+		if err := grpcServer.Serve(listener); err != nil {
+			log.Fatal(errors.Wrap(err, "failed to start grpc server"))
+		}
+	}()
+
+	<-ctx.Done()
+
+	grpcServer.Stop()
+	log.Println("grpc server was stopped")
+
+	if err := client.Disconnect(ctx); err != nil {
+		log.Println(errors.Wrap(err, "failed to disconnect from mongo database"))
+	}
+	log.Println("mongo client has disconnected")
+	os.Exit(0)
 }
