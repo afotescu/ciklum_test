@@ -1,4 +1,8 @@
 # Preparation
+Clone this repository
+```bash
+git clone https://github.com/afotescu/ciklum_test.git
+```
 
 Before running the service you need to add in the root of this app a file called ports.json
 
