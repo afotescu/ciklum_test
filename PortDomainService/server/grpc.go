@@ -10,11 +10,11 @@ import (
 )
 
 // NewGRPCServer creates, register and return a new GRPC server
-func NewGRPCServer(ctx context.Context, db *mongo.Database) (*grpc.Server, error) {
+func NewGRPCServer(ctx context.Context, collection *mongo.Collection) (*grpc.Server, error) {
 
 	grpcServer := grpc.NewServer()
 
-	localServer := &Server{DB: db}
+	localServer := &Server{Collection: collection}
 
 	pb.RegisterTransporterServer(grpcServer, localServer)
 

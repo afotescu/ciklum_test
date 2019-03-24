@@ -12,19 +12,22 @@ import (
 	pb "ciklum_test/protobuf"
 )
 
-const (
-	collectionName = "ports"
-)
+type MongoCollection interface {
+	UpdateOne(ctx context.Context, filter interface{}, update interface{},
+		opts ...*options.UpdateOptions) (*mongo.UpdateResult, error)
+	Find(ctx context.Context, filter interface{},
+		opts ...*options.FindOptions) (*mongo.Cursor, error)
+}
 
 type Server struct {
-	DB *mongo.Database
+	Collection MongoCollection
 }
 
 func (s *Server) CreateOrUpdatePorts(ctx context.Context, port *pb.Port) (*pb.Response, error) {
 	upsert := true
 	filter := bson.D{{"name", port.Name}}
 	update := bson.D{{"$set", port}}
-	ports := s.DB.Collection(collectionName)
+	ports := s.Collection
 	_, err := ports.UpdateOne(ctx, filter, update, &options.UpdateOptions{Upsert: &upsert})
 	if err != nil {
 		err = errors.Wrap(err, "could not update or insert")
@@ -43,7 +46,7 @@ func (s *Server) GetPorts(ctx context.Context, portsPage *pb.PortsPage) (*pb.Por
 	findOptions.SetLimit(int64(portsPage.Limit))
 
 	var result []*pb.Port
-	ports := s.DB.Collection(collectionName)
+	ports := s.Collection
 
 	cursor, err := ports.Find(ctx, bson.D{}, findOptions)
 	if err != nil {

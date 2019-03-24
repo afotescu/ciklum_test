@@ -20,8 +20,14 @@ type createOrUpdateFunc func(context.Context, *pb.Port, ...grpc.CallOption) (*pb
 func ParseAndCallUpdateFunc(ctx context.Context, filePath string, updateFunc createOrUpdateFunc) error {
 	jsonFile, err := os.Open(filePath)
 	if err != nil {
-		log.Fatal(err)
+		return errors.Wrap(err, "could not open file")
 	}
+	defer func() {
+		err := jsonFile.Close()
+		if err != nil {
+			log.Println(errors.Wrap(err, "could not close the file"))
+		}
+	}()
 
 	decoder := json.NewDecoder(jsonFile)
 	t, err := decoder.Token()

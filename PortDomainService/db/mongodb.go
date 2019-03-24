@@ -9,12 +9,13 @@ import (
 )
 
 const (
-	mongoURI     = "mongodb://localhost:27017"
-	databaseName = "portsDB"
+	mongoURI       = "mongodb://localhost:27017"
+	databaseName   = "portsDB"
+	collectionName = "ports"
 )
 
 // NewMongoDB creates and returns a mongodb database and mongo client
-func NewMongoDB(ctx context.Context) (*mongo.Database, *mongo.Client, error) {
+func NewMongoDB(ctx context.Context) (*mongo.Collection, *mongo.Client, error) {
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoURI))
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "failed to connect to mongo")
@@ -23,5 +24,5 @@ func NewMongoDB(ctx context.Context) (*mongo.Database, *mongo.Client, error) {
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "failed to ping mongo")
 	}
-	return client.Database(databaseName), client, nil
+	return client.Database(databaseName).Collection(collectionName), client, nil
 }

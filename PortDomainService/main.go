@@ -32,13 +32,13 @@ func main() {
 	}()
 
 	log.Println("connecting to the database")
-	mdb, client, err := db.NewMongoDB(ctx)
+	collection, client, err := db.NewMongoDB(ctx)
 	if err != nil {
 		log.Fatal(errors.Wrap(err, "failed to initialize mongo database"))
 	}
 
 	log.Println("initializing grpc server")
-	grpcServer, err := server.NewGRPCServer(ctx, mdb)
+	grpcServer, err := server.NewGRPCServer(ctx, collection)
 	if err != nil {
 		log.Fatal(errors.Wrap(err, "failed to initialize grpc server"))
 	}
