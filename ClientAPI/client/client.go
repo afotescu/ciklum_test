@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	address = "localhost:5001"
+	address = "port_domain_service:5001"
 )
 
 // NewGRPCClient will initialize and return a new Transporter client

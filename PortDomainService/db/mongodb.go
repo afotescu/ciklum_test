@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	mongoURI       = "mongodb://localhost:27017"
+	mongoURI       = "mongodb://mongodb:27017"
 	databaseName   = "portsDB"
 	collectionName = "ports"
 )

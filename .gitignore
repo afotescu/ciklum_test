@@ -12,6 +12,6 @@
 *.out
 
 task.md
-ClientApi/ports.json
+ports.json
 
 .idea/

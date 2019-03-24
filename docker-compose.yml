@@ -10,3 +10,22 @@ services:
       - ./db:/db
     ports:
       - 27017:27017
+
+  port_domain_service:
+    build:
+      context: ./
+      dockerfile: PortDomainService/Dockerfile
+    ports:
+      - 5001:5001
+    depends_on:
+      - mongodb
+
+  client_api:
+    build:
+      context: ./
+      dockerfile: ClientAPI/Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - port_domain_service
+      - mongodb
