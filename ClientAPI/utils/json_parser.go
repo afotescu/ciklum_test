@@ -16,7 +16,7 @@ import (
 
 type createOrUpdateFunc func(context.Context, *pb.Port, ...grpc.CallOption) (*pb.Response, error)
 
-// ParseAndCallUpdateService will parse json file and then call updateFunc on each record
+// ParseAndCallUpdateFunc will parse json file and then call updateFunc on each record
 func ParseAndCallUpdateFunc(ctx context.Context, filePath string, updateFunc createOrUpdateFunc) error {
 	jsonFile, err := os.Open(filePath)
 	if err != nil {
