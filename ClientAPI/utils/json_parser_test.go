@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "ciklum_test/protobuf"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 )
 
 func TestParseAndCallUpdateFunc(t *testing.T) {

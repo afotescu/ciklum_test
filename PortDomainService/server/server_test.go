@@ -6,7 +6,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	pb "ciklum_test/protobuf"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 )
 
 func TestServer_CreateOrUpdatePorts(t *testing.T) {

@@ -8,9 +8,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"ciklum_test/PortDomainService/server"
+	"github.com/afotescu/ciklum_test/PortDomainService/server"
 
-	"ciklum_test/PortDomainService/db"
+	"github.com/afotescu/ciklum_test/PortDomainService/db"
 
 	"github.com/pkg/errors"
 )

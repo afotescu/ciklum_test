@@ -6,8 +6,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/grpc"
 
-	"ciklum_test/PortDomainService/services"
-	pb "ciklum_test/protobuf"
+	"github.com/afotescu/ciklum_test/PortDomainService/services"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 )
 
 // NewGRPCServer creates, register and return a new GRPC server

@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"os"
 
-	"ciklum_test/ClientAPI/router"
+	"github.com/afotescu/ciklum_test/ClientAPI/router"
 
-	"ciklum_test/ClientAPI/client"
+	"github.com/afotescu/ciklum_test/ClientAPI/client"
 
 	"github.com/pkg/errors"
 
-	"ciklum_test/ClientAPI/utils"
+	"github.com/afotescu/ciklum_test/ClientAPI/utils"
 )
 
 var port = os.Getenv("PORT")

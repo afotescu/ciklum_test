@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 
-	pb "ciklum_test/protobuf"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 )
 
 var portDomainServiceURI = os.Getenv("PORT_DOMAIN_SERVICE_URI")

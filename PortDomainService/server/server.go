@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	"ciklum_test/PortDomainService/services"
+	"github.com/afotescu/ciklum_test/PortDomainService/services"
 
-	pb "ciklum_test/protobuf"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 )
 
 // Server is an implementation of grpc TransporterServer

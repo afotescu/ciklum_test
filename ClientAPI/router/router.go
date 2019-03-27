@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	pb "ciklum_test/protobuf"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 
 	"github.com/gorilla/mux"
 )

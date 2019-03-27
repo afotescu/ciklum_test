@@ -1,4 +1,4 @@
-module ciklum_test
+module github.com/afotescu/ciklum_test
 
 go 1.12
 

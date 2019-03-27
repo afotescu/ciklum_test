@@ -11,7 +11,7 @@ import (
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 
-	pb "ciklum_test/protobuf"
+	pb "github.com/afotescu/ciklum_test/protobuf"
 )
 
 type createOrUpdateFunc func(context.Context, *pb.Port, ...grpc.CallOption) (*pb.Response, error)
