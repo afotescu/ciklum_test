@@ -2,16 +2,17 @@ package db
 
 import (
 	"context"
+	"os"
 
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const (
-	mongoURI       = "mongodb://mongodb:27017"
-	databaseName   = "portsDB"
-	collectionName = "ports"
+var (
+	mongoURI       = os.Getenv("MONGO_URI")
+	databaseName   = os.Getenv("DB")
+	collectionName = os.Getenv("COLLECTION")
 )
 
 // NewMongoDB creates and returns a mongodb database and mongo client

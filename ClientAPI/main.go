@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 
 	"ciklum_test/ClientAPI/router"
 
@@ -14,9 +15,7 @@ import (
 	"ciklum_test/ClientAPI/utils"
 )
 
-const (
-	port = ":5000"
-)
+var port = os.Getenv("PORT")
 
 func main() {
 	ctx := context.Background()

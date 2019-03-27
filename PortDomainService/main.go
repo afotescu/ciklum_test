@@ -15,9 +15,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-const (
-	tcpPort = ":5001"
-)
+var tcpPort = os.Getenv("PORT")
 
 func main() {
 	ctx := context.Background()
