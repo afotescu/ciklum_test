@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/grpc"
 
+	"ciklum_test/PortDomainService/services"
 	pb "ciklum_test/protobuf"
 )
 
@@ -14,7 +15,7 @@ func NewGRPCServer(ctx context.Context, collection *mongo.Collection) (*grpc.Ser
 
 	grpcServer := grpc.NewServer()
 
-	localServer := &Server{Collection: collection}
+	localServer := &Server{PortsService: &services.PortsService{PortsCollection: collection}}
 
 	pb.RegisterTransporterServer(grpcServer, localServer)
 

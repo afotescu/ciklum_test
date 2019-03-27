@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// NewRouter will return a new http router with ports func set up
 func NewRouter(ctx context.Context, grpcClient pb.TransporterClient) *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/ports", getPorts(ctx, grpcClient))
